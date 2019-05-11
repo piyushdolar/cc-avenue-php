@@ -1,0 +1,18 @@
+<form id="reqForm" method="post" name="redirect" action="https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction">
+  <input type="hidden" id='c1' name="encRequest">
+  <input type="hidden" id='c2' name="access_code">
+</form>
+</center>
+<script type="text/javascript">
+  $(document).on('submit','#CartRegistration',function(e){
+    e.preventDefault();
+      $(this).validate();
+      var data = $('#CartRegistration').serializeArray();
+      $.post('<?php echo url('index.php/Welcome/checkout'); ?>',{'formData':data},function(v,s){
+        // console.log(v);
+        $('#reqForm #c1').val(v.data);
+        $('#reqForm #c2').val(v.key);
+        $('#reqForm').submit();        
+      },'json');
+  });
+</script>
